@@ -1,0 +1,78 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXFileReference section */
+		965BC1871D37D7B900FCE45F /* Location.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = Location.lua; sourceTree = "<group>"; };
+		965FB7371D37DBAB0054391F /* Profile.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = Profile.lua; sourceTree = "<group>"; };
+		965FB7381D37E4AB0054391F /* Bot.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = Bot.lua; sourceTree = "<group>"; };
+		965FB7391D37E4E80054391F /* main.lua */ = {isa = PBXFileReference; lastKnownFileType = text; path = main.lua; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXGroup section */
+		965BC1801D37D7A900FCE45F = {
+			isa = PBXGroup;
+			children = (
+				965FB7391D37E4E80054391F /* main.lua */,
+				965FB7381D37E4AB0054391F /* Bot.lua */,
+				965FB7371D37DBAB0054391F /* Profile.lua */,
+				965BC1871D37D7B900FCE45F /* Location.lua */,
+			);
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXProject section */
+		965BC1811D37D7A900FCE45F /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0730;
+			};
+			buildConfigurationList = 965BC1841D37D7A900FCE45F /* Build configuration list for PBXProject "OceanCleaner" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = 965BC1801D37D7A900FCE45F;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+			);
+		};
+/* End PBXProject section */
+
+/* Begin XCBuildConfiguration section */
+		965BC1851D37D7A900FCE45F /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Debug;
+		};
+		965BC1861D37D7A900FCE45F /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		965BC1841D37D7A900FCE45F /* Build configuration list for PBXProject "OceanCleaner" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				965BC1851D37D7A900FCE45F /* Debug */,
+				965BC1861D37D7A900FCE45F /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 965BC1811D37D7A900FCE45F /* Project object */;
+}
