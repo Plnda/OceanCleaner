@@ -1,0 +1,22 @@
+[script]
+name=[Bot] OceanCleaner
+type=script
+
+[files]
+file=Location.lua
+file=Profile.lua
+file=PathRecorder.lua
+file=Pather.lua
+file=Bot.lua
+file=SettingsGui.lua
+file=MainGui.lua
+file=main.lua
+
+[dependencies]
+file=../libtimers/script.def
+file=../libtable/script.def
+file=../libjson/script.def
+file=../libfsm/script.def
+file=../libbdo/script.def
+file=../libconsumables/script.def
+file=../libbdo/script.def

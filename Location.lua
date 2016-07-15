@@ -10,6 +10,8 @@ function Location.new()
     self.position = { x = 0, y = 0, z = 0 }
     self.name = ""
     self.rotation = 0
+    
+    return self
 end
 
 -- Returns a vector3 of our position
