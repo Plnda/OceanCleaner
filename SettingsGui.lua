@@ -1,16 +1,89 @@
 SettingsGui = {}
 
 SettingsGui.visable = false
+SettingsGui.npcLocationIndex = 0
+SettingsGui.npcKey = {"Trader","Repairer","Warehouse","Vendor"}
+SettingsGui.npcName = {}
 
 function SettingsGui:draw()
   
   if SettingsGui.visable then
     
-    local _, shouldDisplay = ImGui.Begin("Paths", SettingsGui.visable, ImVec2(500, 500), -1.0)
+    local _, shouldDisplay = ImGui.Begin("Settings", SettingsGui.visable, ImVec2(400, 400), -1.0)
   
     if(shouldDisplay) then
       
-      if ImGui.CollapsingHeader("Record Path", "id_profile_editor_mesh", true, true) then
+      local selfPlayer = GetSelfPlayer()
+      
+      if ImGui.CollapsingHeader("NPC Location Settings", "id_location_editor", true, true) then
+          
+          ImGui.Columns(1)
+        
+          SettingsGui.npcName = Bot.profile:getNPCNameList()
+        
+          changed,  SettingsGui.npcLocationIndex = ImGui.Combo("Select NPC", SettingsGui.npcLocationIndex, SettingsGui.npcName) 
+        
+          -- Get the nearest npc
+          local npc = Game.getNearestNPC()
+          
+          ImGui.Text("Nearest NPC: " .. npc.Name, ImVec2(300, 20))
+          ImGui.SameLine()
+          
+          -- Saves location of the current selected npc
+          if ImGui.Button("Save Location", ImVec2(100, 20)) then
+            
+              if SettingsGui.npcLocationIndex == 0 then 
+                
+                return false
+              end
+              
+              local item = SettingsGui.npcName[SettingsGui.npcLocationIndex]
+              
+              local keys = item:split(":")
+              
+              local key = keys[1]
+              
+              -- Find the location object
+              local location = Bot.profile.locations[key]
+              
+              -- Record location
+              Bot:recordLocation(location)
+              
+          end
+      end
+      
+      if ImGui.CollapsingHeader("Fish Location", "id_settings_fish", true, true) then
+  
+        ImGui.Columns(1)
+        
+        location = Bot.profile.fishLocations[1]
+
+        if ImGui.Button("Set Current Location", ImVec2(150, 20)) then
+            
+            -- Get player
+            local selfPlayer = GetSelfPlayer()
+            
+            -- For now only one location is supported
+            location.position.x = selfPlayer.Position.X
+            location.position.y = selfPlayer.Position.Y
+            location.position.z = selfPlayer.Position.Z
+            location.rotation = selfPlayer.Rotation
+                         
+        end
+        
+        ImGui.SameLine()
+        
+        if location:hasPosition() then
+          ImGui.Text("Current Location: " .. round(location.position.x) .. ", " .. round(location.position.y) .. ", " .. round(location.position.z), ImVec2(150, 20))
+
+      else
+        
+          ImGui.Text("Current Location: None", ImVec2(150, 20))
+        end
+      end
+      
+      if ImGui.CollapsingHeader("Path Settings", "id_profile_editor_mesh", true, true) then
+        
             ImGui.Columns(2)
 
             _, Bot.PathRecorder.Enabled = ImGui.Checkbox("Enable Pather##profile_enable_mesher", Bot.PathRecorder.Enabled)
@@ -18,23 +91,17 @@ function SettingsGui:draw()
 
             _, Bot.DrawPath = ImGui.Checkbox("Draw Path##profile_draw_mesher", Bot.DrawPath)
             ImGui.NextColumn()
-            _, Bot.PathRecorder.SnapToNode = ImGui.Checkbox("Snap to Node##profile_snaptonode", Bot.PathRecorder.SnapToNode)
-            --            ImGui.SameLine();
-            --            _, ProfileEditor.OneWay = ImGui.Checkbox("One Way##profile_oneway", ProfileEditor.OneWay)
+            
             ImGui.Columns(1)
-            if ImGui.Button("Remove Nodes") then
+            
+            if ImGui.Button("Remove Nearby Node(s)") then
+              
                 Bot.PathRecorder.Graph:RemoveNodesConnectionsInRadius(selfPlayer.Position.X, selfPlayer.Position.Y, selfPlayer.Position.Z, Bot.PathRecorder.RemoveRadius)
             end
-            ImGui.Text("")
-            _, Bot.PathRecorder.RemoveRadius = ImGui.SliderInt("Remove Radius##profile_remove_redius", Bot.PathRecorder.RemoveRadius, 100, 1000)
-            _, Bot.PathRecorder.SnapDistance = ImGui.SliderInt("Snap Distance##profile_snap_Dist", Bot.PathRecorder.RemoveRadius, 100, 800)
-
       end
-    
+
     ImGui.End()
     end
-    
-    
   end
 
 end

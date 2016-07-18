@@ -1,12 +1,19 @@
 [script]
-name=[Bot] OceanCleaner
+name=[Bot] Black Ocean Fisher
 type=script
 
 [files]
+file=utils.lua
+file=Game.lua
 file=Location.lua
 file=Profile.lua
 file=PathRecorder.lua
 file=Pather.lua
+file=WarehouseState.lua
+file=TradeManagerState.lua
+file=RepairState.lua
+file=FishingState.lua
+file=State.lua
 file=Bot.lua
 file=SettingsGui.lua
 file=MainGui.lua

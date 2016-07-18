@@ -1,59 +1,38 @@
-
 Gui = {}
 
 function Gui:draw()
   
-  local _, shouldDisplay = ImGui.Begin("Ocean Cleaner", true, ImVec2(500, 500), -1.0, ImGuiWindowFlags_MenuBar)
+  local _, shouldDisplay = ImGui.Begin("Black Ocean Fisher", true, ImVec2(400, 300), -1.0, ImGuiWindowFlags_MenuBar | ImGuiWindowFlags_NoResize)
   
   if(shouldDisplay) then
-    
-    local selfPlayer = GetSelfPlayer()
-    
+
     -- draw menu
     self:drawMenu()
     
-    if ImGui.CollapsingHeader("Debug", "id_debug", true, true) then
+    if ImGui.CollapsingHeader("Force Action", "id_debug", true, true) then
       
-      ImGui.Columns(2)
+      ImGui.Columns(1)
       
-      -- Debug button
-      if ImGui.Button("Save trader") then
+      SettingsGui.npcName = Bot.profile:getNPCNameList()
         
-        Bot:recordLocation(Bot.profile:getTrader())
+      changed,  SettingsGui.npcLocationIndex = ImGui.Combo("Select NPC", SettingsGui.npcLocationIndex, SettingsGui.npcName)
+      
+      ImGui.Columns(1)
+    
+      if ImGui.Button("Start Action") then
         
-      end
-      
-      ImGui.SameLine()
-      
-      if ImGui.Button("Move to trader") then
-          
-        local trade = Bot.profile:getTrader()
-    
-        print("Moving to " .. trade:getName())
-    
-        Bot:moveTo(trade:getPosition())
+        Bot:forceState(SettingsGui.npcLocationIndex)
 
       end
-    
-      ImGui.NextColumn()
-      
-      if ImGui.Button("Save Settings") then
-        
-        Bot.profile:save()
-      end
-      
-      ImGui.SameLine()
-      
-      if ImGui.Button("Load Settings") then
-        
-        Bot.profile:load()
-        
-      end
-    
     end
     
-    ImGui.Columns(1)
-    ImGui.NextColumn()
+    if Bot.currentState.state ~= "" then
+      ImGui.Text("Current State: " .. Bot.currentState.state.name)
+    end
+    
+    if Bot.currentState.state ~= "" then
+      ImGui.Text("Current Action: " .. Bot.currentState.state.action)
+    end
   
   end
 
@@ -85,11 +64,15 @@ function Gui:drawMenu()
   
     if ImGui.BeginMenu("Settings") then
         
-        if ImGui.MenuItem("Edit Locations", "") then
-            
+        if ImGui.MenuItem("Save Settings", "") then
+            Bot.profile:save()
         end
         
-        if ImGui.MenuItem("Edit Paths", "") then
+        if ImGui.MenuItem("Load Settings", "") then
+            Bot.profile:load()
+        end
+        
+        if ImGui.MenuItem("Edit Settings", "") then
             
             if not SettingsGui.visable then
               

@@ -34,7 +34,7 @@ end
 
 
 function Pather:Reset()
-print("Pather Reset Called")
+
     self:Stop()
     local selfPlayer = GetSelfPlayer()
     selfPlayer:ClearActionState()
@@ -57,7 +57,7 @@ print("Pather Reset Called")
 end
 
 function Pather:SendBDOMove(destination, playerRun)
-    print("Send BDO Move")
+    
     local selfPlayer = GetSelfPlayer()
     --    selfPlayer:ClearActionState()
     local myDistance = destination.Distance3DFromMe
@@ -246,9 +246,6 @@ function Pather:PathTo(to)
                 cnt = #tmpPath + 1
             end
         end
-        -- We should try to optimize start of path at this point
-        print("Unwind path nodes After Optimize: " .. tostring(table.length(tmpPath)))
-
 
         self.Destination = to[1]
         self._pathMode = 1
@@ -274,7 +271,7 @@ function Pather:PathTo(to)
         return true
 
     end
-    print("Can not find path and not able to unwind")
+
     self.CurrentPath = { }
     self.Running = false
     self:Stop()

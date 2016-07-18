@@ -1,12 +1,9 @@
 Pyx.Scripting.CurrentScript:RegisterCallback("Pyx.OnScriptStart", function()
-
-  print("Starting OceanCleaner") 
   
 end)
 
 Pyx.Scripting.CurrentScript:RegisterCallback("Pyx.OnScriptStop", function()
-    
-  print("Stopping OceanCleaner")    
+  
   
 end)
 

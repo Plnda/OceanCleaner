@@ -11,11 +11,17 @@ function Profile.new()
     -- Table with our possible locations
     self.locations = {
         
-        trader = Location(),
-        repairer = Location(),
-        fisher = Location(),
-        warehouse = Location()
+        Trader = Location(),
+        Repairer = Location(),
+        Warehouse = Location(),
+        Vendor = Location()
     }
+    
+    self.fishLocations = {
+        
+        Location()
+      
+      }
 
     self.name = ""
 
@@ -51,6 +57,7 @@ function Profile:load()
   
   Bot.PathRecorder.Graph = MyGraph.LoadGraphFromJSON(Pyx.FileSystem.ReadFile("\\Profiles\\mesh.json"))
   Bot.pather.Graph = Bot.PathRecorder.Graph
+   
 end
 
 -- Verifies if the current profile is valid
@@ -78,18 +85,45 @@ end
 
 function Profile:getTrader()
 
-    return self.locations["trader"]
+    return self.locations["Trader"]
 end
 
 function Profile:getRepairer()
 
-return self.locations["repairer"]
+return self.locations["Repairer"]
 end
 
 function Profile:getWarehouse()
 
-return self.locations["warehouse"]
+return self.locations["Warehouse"]
 end
+
+-- Returns a current overview of npc
+function Profile:getNPCNameList()
+  
+  local list = {}
+  local idx = 1
+  
+  for key, value in pairs(self.locations) do
+      
+      local location = self.locations[key]
+      
+      local string = key .. ": [None]"
+      
+      if location:hasPosition() and location:getName() ~= "" then
+        
+        string = key .. ": " .. location:getName()   
+      end
+      
+      list[idx] = string
+      
+      idx = idx + 1
+  end
+  
+  return list
+  
+end
+
 
 --//
 -- Debug
