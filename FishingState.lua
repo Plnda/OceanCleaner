@@ -63,8 +63,7 @@ function StateFishing:pulse()
     if StateFishing.action == "HOOK_FISH" then
         
         if Pyx.Win32.GetTickCount() - StateFishing.timer > 3500 then
-
-          print("setting result")
+          
           BDOLua.Execute("getSelfPlayer():get():SetMiniGameResult(11)")
           StateFishing.timer = Pyx.Win32.GetTickCount()
           StateFishing.action = "HOOK_FISH_MINIGAME"
@@ -136,7 +135,8 @@ function StateFishing:lootContainer()
             end
           end
           
-          print("Item: " .. loot.ItemEnchantStaticStatus.Name .. " has grade " .. loot.ItemEnchantStaticStatus.Grade)
+          -- Increase our caught 
+          Bot.statistics.totalCaught = Bot.statistics.totalCaught + 1
           
           -- Loop over the quality
           if loot.ItemEnchantStaticStatus.Grade ~= 0 and loot.ItemEnchantStaticStatus.Grade ~= 1 then
@@ -144,7 +144,10 @@ function StateFishing:lootContainer()
           end
           
           if shouldTake then
+            Bot.statistics:addLoot(loot)
             Looting.Take(i)
+          else
+            Bot.statistics:addTrash()
           end
           
       end

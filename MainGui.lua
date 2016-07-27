@@ -9,6 +9,15 @@ function Gui:draw()
     -- draw menu
     self:drawMenu()
     
+    if ImGui.CollapsingHeader("Stats", "id_stats", true, true) then
+      
+      ImGui.Columns(1)
+      
+      ImGui.Text("Total Fish Caught: " .. Bot.statistics.totalCaught)
+      ImGui.Combo("Detailed Statistics",0, Bot.statistics:getList())
+      
+    end
+    
     if ImGui.CollapsingHeader("Force Action", "id_debug", true, true) then
       
       ImGui.Columns(1)

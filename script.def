@@ -9,6 +9,7 @@ file=Location.lua
 file=Profile.lua
 file=PathRecorder.lua
 file=Pather.lua
+file=Statistics.lua
 file=WarehouseState.lua
 file=TradeManagerState.lua
 file=RepairState.lua

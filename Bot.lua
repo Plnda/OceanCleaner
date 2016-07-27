@@ -7,6 +7,7 @@ Bot.playerMoving = false
 Bot.moveCheck = 0
 Bot.moveIndex = 0
 Bot.currentState = State()
+Bot.statistics = Statistics()
 
 -- Starts the bot
 function Bot:start()

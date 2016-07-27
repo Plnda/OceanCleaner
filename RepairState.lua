@@ -44,9 +44,9 @@ function RepairState:pulse()
       
       if RepairState.action == "DIALOG_TALKING" then
         
-        if Pyx.Win32.GetTickCount() - RepairState.timer > 2500 then
+        if Pyx.Win32.GetTickCount() - RepairState.timer > 3500 then
           
-          --BDOLua.Execute("MessageBox.keyProcessEscape()")
+          BDOLua.Execute("MessageBox.keyProcessEscape()")
           BDOLua.Execute("HandleClickedFuncButton(getDialogButtonIndexByType(CppEnums.ContentsType.Contents_Repair))")
           
           RepairState.action = "DIALOG_REPAIR"
@@ -57,7 +57,7 @@ function RepairState:pulse()
       
       if RepairState.action == "DIALOG_REPAIR" then
         
-        if Pyx.Win32.GetTickCount() - RepairState.timer > 3500 then
+        if Pyx.Win32.GetTickCount() - RepairState.timer > 4500 then
           local lua = [[
             PaGlobal_Repair:messageBoxRepairAllInvenItem()
             PaGlobal_Repair:cursor_PosUpdate()
@@ -128,7 +128,7 @@ function RepairState:moveToLocation()
 end
 
 function RepairState:onMovedToLocation()
-  print("test")
+
   RepairState.onLocation = true
   RepairState.timer = Pyx.Win32.GetTickCount()
 end
